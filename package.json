@@ -1,0 +1,27 @@
+{
+  "name": "restful-api",
+  "version": "1.0.0",
+  "description": "A little project to understand what's a RESTful API and how to build it with Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thraveler/restful-api.git"
+  },
+  "keywords": [
+    "restful",
+    "api",
+    "nodejs"
+  ],
+  "author": "Daniel Mendez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thraveler/restful-api/issues"
+  },
+  "homepage": "https://github.com/Thraveler/restful-api#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
