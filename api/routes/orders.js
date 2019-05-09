@@ -7,38 +7,53 @@ const Product = require('./models/products');
 
 router.get('/', (req, res, next) => {
 
+  console.log('Here');
+
   Order.find()
-    .select('quantity product')
-    .populate('product', 'name price')
     .exec()
     .then(docs => {
-
       console.log(docs);
-      res.status(200).json({
-        count: docs.length,
-        orders: docs.map(order => {
-
-          return {
-            quantity: order.quantity,
-            product: order.product,
-            request: {
-              type: 'GET',
-              url: `http:localhost:3000/orders/${order._id}`
-            }
-          }
-
-        })
-      });
-
+      res.status(200).json(docs);
     })
     .catch(err => {
-
       console.log(err);
       res.status(500).json({
         error: err
       });
-
     });
+
+  // Order.find()
+  //   .select('quantity product')
+  //   .populate('product', 'name price')
+  //   .exec()
+  //   .then(docs => {
+
+  //     console.log(docs);
+  //     res.status(200).json({
+  //       count: docs.length,
+  //       orders: docs.map(order => {
+
+  //         return {
+  //           quantity: order.quantity,
+  //           product: order.product,
+  //           request: {
+  //             type: 'GET',
+  //             url: `http:localhost:3000/orders/${order._id}`
+  //           }
+  //         }
+
+  //       })
+  //     });
+
+  //   })
+  //   .catch(err => {
+
+  //     console.log(err);
+  //     res.status(500).json({
+  //       error: err
+  //     });
+
+  //   });
 
   // res.status(200).json({
   //   message: "Orders were fetched"
