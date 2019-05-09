@@ -1,5 +1,6 @@
 {
   "env": {
-    "MONGO_ATLAS_PASSWD": "k5Dvw1gwUxuu23Bo"
+    "MONGO_ATLAS_PASSWD": "k5Dvw1gwUxuu23Bo",
+    "SECRET_PASSWD": "userEncryptPasswd"
   }
 }
