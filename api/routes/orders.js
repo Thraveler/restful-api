@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
 
   Order.find()
     .select('quantity product')
+    .populate('product', 'name price')
     .exec()
     .then(docs => {
 
@@ -120,6 +121,7 @@ router.get('/:orderId', (req, res, next) => {
   const id = req.params.orderId;
 
   Order.findById(id)
+    .populate('product', 'name price')
     .exec()
     .then(order => {
 
