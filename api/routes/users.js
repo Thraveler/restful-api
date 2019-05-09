@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const mongoose = require('mongoose');
 const User = require('./models/users');
@@ -74,6 +75,68 @@ router
     // res.status(201).json({
     //   message: `User saved successfully!`
     // });
+  });
+
+router
+  .post('/login', (req, res, next) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.find({ email: email })
+      .exec()
+      .then(docs => {
+        console.log(docs);
+        
+        if(docs.length >= 1 ) {
+
+          bcrypt.compare(
+            password,
+            docs[0].password
+          )
+          .then(result => {
+
+            if(result) {
+
+              const token = jwt.sign(
+                {
+                  _id: docs[0]._id,
+                  email: docs[0].email,
+                }, 
+                process.env.SECRET_PASSWD,
+                {
+                  expiresIn: '1h'
+                }
+              );
+
+              res.status(200).json({
+                message: 'Auth successfully!',
+                token: token
+              });
+
+            } else {
+              
+              res.status(401).json({
+                message: 'Auth error'
+              });
+
+            }
+
+          });
+
+        } else {
+          res.status(401).json({
+            message: 'Auth error'
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+
   });
     
 router
